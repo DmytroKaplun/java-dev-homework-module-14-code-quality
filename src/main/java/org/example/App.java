@@ -38,20 +38,20 @@ public class App {
 
     private static void playerTurn(char[][] board, Scanner scanner) {
         while (true) {
-            byte userInput = 0;
-            if (!scanner.hasNextLine()) {
-                 userInput = scanner.nextByte();
-            }
+            if (scanner.hasNextInt()) {
+               int userInput = scanner.nextByte();
 
-            if (userInput > 0 && userInput < 10) {
-                if (isSpaceEmpty(userInput, board)) {
-                    placeSymbol(board, userInput, 'X');
-                    break;
-                } else {
-                    logger.warning("That position is already in use. Enter another.");
+                if (userInput > 0 && userInput < 10) {
+                    if (isSpaceEmpty(userInput, board)) {
+                        placeSymbol(board, userInput, 'X');
+                        break;
+                    } else {
+                        logger.warning("That position is already in use. Enter another.");
+                    }
                 }
             } else {
-                logger.warning("Invalid input. Enter again.");
+                logger.warning("Invalid input. Please enter numbers only.");
+                scanner.next();
             }
         }
     }
@@ -101,7 +101,7 @@ public class App {
                 (board[0][2] == symbol && board[1][1] == symbol && board[2][0] == symbol);
     }
 
-    private static void placeSymbol(char[][] board, byte num, char symbol) {
+    private static void placeSymbol(char[][] board, int num, char symbol) {
         int row = (num - 1) / 3;
         int col = (num - 1) % 3;
         board[row][col] = symbol;
@@ -121,7 +121,7 @@ public class App {
         }
     }
 
-    private static boolean isSpaceEmpty(byte input, char[][] board) {
+    private static boolean isSpaceEmpty(int input, char[][] board) {
         int row = (input - 1) / 3;
         int col = (input - 1) % 3;
         return board[row][col] == ' ';

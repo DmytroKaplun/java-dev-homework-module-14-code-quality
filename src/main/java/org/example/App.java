@@ -38,7 +38,10 @@ public class App {
 
     private static void playerTurn(char[][] board, Scanner scanner) {
         while (true) {
-            byte userInput = scanner.nextByte();
+            byte userInput = 0;
+            if (!scanner.hasNextLine()) {
+                 userInput = scanner.nextByte();
+            }
 
             if (userInput > 0 && userInput < 10) {
                 if (isSpaceEmpty(userInput, board)) {
